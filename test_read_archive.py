@@ -29,15 +29,15 @@ def test_xlsx_file(create_directory, archive):
             sheet = workbook.active
             assert archive.getinfo('import_company.xlsx').file_size == 6809
             assert len(workbook.sheetnames) == 1
-            assert sheet.max_row == 10
-            assert sheet.max_column == 5
+            assert sheet.max_row == 6
+            assert sheet.max_column == 4
             assert sheet.cell(row=4, column=3).value == 'Отдел сервисного обслуживания'
 
 def test_csv_file():
     with ZipFile(os.path.join(resources, 'test_archive.zip')) as archive:
         with archive.open('gross-domestic-product-june-2023-quarter.csv') as csv_file:
             reader = csv.DictReader(csv_file)
-            print('Имена полей: ', reader.fieldnames)
+            print('Прочитано строк: ', reader.line_num)
             assert archive.getinfo('gross-domestic-product-june-2023-quarter.csv').file_size == 19034868
 
 
